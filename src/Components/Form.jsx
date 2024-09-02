@@ -8,6 +8,7 @@ export default function Form ({onAddActivity}) {
     // Handle Submit Event -> Adding Activities
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log("Form submitted")
     // Extract the submitted data as an object
     const newActivity = {
         name: name,
@@ -24,7 +25,7 @@ export default function Form ({onAddActivity}) {
         setIsForGoodWeather(false)
 
         // focus on the first input field 
-        name.current.focus();
+        event.target.elements.name.focus();
     }
 
     return (
@@ -34,7 +35,7 @@ export default function Form ({onAddActivity}) {
         
         <div>
         <label htmlFor="input_activity"> Activity Name: </label>
-        <input type="text" name="" id="input_activity" onChange={(e) => setName(e.target.value)}/>
+        <input type="text" name="name" id="input_activity" onChange={(e) => setName(e.target.value)}/>
         </div>
         
 
