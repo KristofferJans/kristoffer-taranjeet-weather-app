@@ -60,7 +60,15 @@ function App() {
       }
     }
     fetchWeather()
+
+    const intervalID = setInterval(fetchWeather, 5000);
+    return () => clearInterval(intervalID);
+    
+    
   },[]);
+
+  
+
 
   function handleDeleteActivity (id) {
     setActivities(activities.filter((activity) => activity.id !== id))
