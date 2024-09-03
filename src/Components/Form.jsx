@@ -34,8 +34,11 @@ export default function Form ({onAddActivity}) {
         <h2 className ='header'>Add a New Activity</h2>
         
         <div>
-        <label htmlFor="input_activity"> Activity Name: </label>
-        <input type="text" name="name" id="input_activity" onChange={(e) => setName(e.target.value)}/>
+        <label htmlFor="input_activity" className="input_activity"> Activity Name: </label>
+        <input type="text" 
+        name="name" 
+        id="input_activity" 
+        onChange={(e) => setName(e.target.value)}/>
         </div>
         
 
@@ -45,7 +48,7 @@ export default function Form ({onAddActivity}) {
         </div>
 
         <div>
-          <button type="submit" >Submit</button>
+          <button type="submit" className="button--submit">Submit</button>
         </div>
 
       </form>
