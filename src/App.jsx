@@ -30,11 +30,11 @@ function App() {
     const activityWithId = { ...newActivity, id: uid() }; // Create a new activity object with a unique ID
     setActivities((prevActivities) => [...prevActivities, activityWithId]); // Update the state by adding the new activity to the existing list - prevActivities represents the current state of activities before the update
   }
-  const isGoodWeather = false;
+  
 
   // Filter activities based on the weather condition
   const filteredActivities = activities.filter(
-    (activities) => activities.isForGoodWeather === isGoodWeather
+    (activities) => activities.isForGoodWeather === weather.isGoodWeather
   );
 
   // Effect to persist the activities array in localStorage
@@ -62,13 +62,21 @@ function App() {
     fetchWeather()
   },[]);
 
+  function handleDeleteActivity (id) {
+    setActivities(activities.filter((activity) => activity.id !== id))
+  }
+
 
 
   return (
     <>
     
       {/* Pass filtered activities and weather condition to List component */}
-      <List activities={filteredActivities} isGoodWeather={isGoodWeather} />
+      <List activities={filteredActivities} 
+      isGoodWeather={weather.isGoodWeather} 
+      temperature={weather.temperature} 
+      condition={weather.condition}
+      onDeleteActivity={handleDeleteActivity} />
       {/* Pass handleAddActivity function to Form component */}
       <Form onAddActivity={handleAddActivity} />
     </>
