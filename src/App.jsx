@@ -4,6 +4,11 @@ import List from "./Components/List.jsx";
 import "./App.css";
 import Form from "./Components/Form.jsx";
 
+const weatherAPI = "https://example-apis.vercel.app/api/weather"
+
+
+
+
 function App() {
   const [activities, setActivities] = useState(() => {
     // Retrieve the 'activities' item from localStorage
@@ -12,6 +17,13 @@ function App() {
     // If not, return an empty array
     return savedActivities ? JSON.parse(savedActivities) : [];
   });
+
+  const [weather, setWeather] = useState({
+    isGoodWeather: true,
+    temperature: null,
+    condition: "",
+    location: "",
+  })
 
   // Function to handle adding a new activity - newActivity as parameter which is an object
   function handleAddActivity(newActivity) {
@@ -30,8 +42,31 @@ function App() {
     localStorage.setItem("activities", JSON.stringify(activities));
   }, [activities]);
 
+  useEffect (() => {
+    async function fetchWeather () {
+      try {
+        const response = await fetch(weatherAPI)
+        const data = await response.json()
+        console.log(data)
+
+        setWeather({
+          isGoodWeather: data.isGoodWeather,
+          temperature: data.temperature,
+          condition: data.condition,
+          location: data.location
+        })
+      } catch (error) {
+        console.log("Failed to fetch weather data from weather API", error)
+      }
+    }
+    fetchWeather()
+  },[]);
+
+
+
   return (
     <>
+    
       {/* Pass filtered activities and weather condition to List component */}
       <List activities={filteredActivities} isGoodWeather={isGoodWeather} />
       {/* Pass handleAddActivity function to Form component */}
